@@ -1,0 +1,183 @@
+<meta charset="utf-8">
+
+<title>Считалка коммуналки ver 1.0 от 26.05.2018</title>
+<div class="container">
+    <br>
+    <header class="text-center">
+        <h1>Считалка коммуналки ver 1.0 от 26.05.2018</h1>
+    </header>
+    <br>
+    <div class="alert alert-warning" role="alert">
+        <i>Важно: JavaScript принимает дробные числа с точкой, числа с запятой будут выдавать NaN, реплейсер не подключен</i>
+    </div>
+
+    <body>
+        <form name="data_entry" action="#">
+            <div class="text-center">
+                <h2>Предыдущие показатели</h2>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>Пожалуйста, введите предыдущие показатели электричества Т1</h5>
+                <input type="text" id="t1old" class="form-control" placeholder="показатели электричества Т1">
+            </div>
+            <div class="form-group">
+                <h5>Пожалуйста, введите предыдущие показатели электричества Т2</h5>
+                <input type="text" id="t2old" class="form-control" placeholder="показатели электричества Т2">
+            </div>
+            <div class="form-group">
+                <h5>Пожалуйста, введите предыдущие показатели электричества Т3</h5>
+                <input type="text" id="t3old" class="form-control" placeholder="показатели электричества Т3">
+            </div>
+            <div class="form-group">
+                <h5>Пожалуйста, введите предыдущие показатели горячей воды</h5>
+                <input type="text" id="hotold" class="form-control" placeholder="показатели горячей воды">
+            </div>
+            <div class="form-group">
+                <h5>Пожалуйста, введите предыдущие показатели холодной воды</h5>
+                <input type="text" id="coldold" class="form-control" placeholder="показатели холодной воды">
+            </div>
+            <br><br>
+            <div class="text-center">
+                <h2>Актуальные показатели</h2>
+            </div>
+            <br>
+            <div class="form-group">
+                <h5>Пожалуйста, введите актуальные показатели электричества Т1</h5>
+                <input type="text" id="t1new" class="form-control" placeholder="показатели электричества Т1">
+            </div>
+            <div class="form-group">
+                <h5>Пожалуйста, введите актуальные показатели электричества Т2</h5>
+                <input type="text" id="t2new" class="form-control" placeholder="показатели электричества Т2">
+            </div>
+            <div class="form-group">
+                <h5>Пожалуйста, введите актуальные показатели электричества Т3</h5>
+                <input type="text" id="t3new" class="form-control" placeholder="показатели электричества Т3">
+            </div>
+            <div class="form-group">
+                <h5>Пожалуйста, введите актуальные показатели горячей воды</h5>
+                <input type="text" id="hotnew" class="form-control" placeholder="показатели горячей воды">
+            </div>
+            <div class="form-group">
+                <h5>Пожалуйста, введите актуальные показатели холодной воды</h5>
+                <input type="text" id="coldnew" class="form-control" placeholder="показатели холодной воды">
+            </div>
+            <br><br>
+            <a href="javascript:void(0)" class="btn btn-success btn-lg btn-block" onclick="countPay();">Посчитать с полным выводом отчёта</a>
+            <br>
+            <a href="javascript:void(0)" class="btn btn-outline-secondary btn-lg btn-block" onclick="showDetailed()">Показать/скрыть подробный отчёт</a>
+            <br>
+            <a href="javascript:void(0)" class="btn btn-warning btn-lg btn-block" onclick="window.location.reload();">Сбросить отчёт</a>
+            <input type="button" class="btn btn-danger btn-lg btn-block" name="reset_form" value="Сбросить форму" onclick="this.form.reset();">
+            <br>
+            <a href="javascript:void(0)" class="btn btn-info btn-lg btn-block" onclick="countPayLite();">Посчитать без вывода отчёта</a>
+        </form>
+        <div id="detailedBlock">
+            <table class="table table-striped text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Электроэнергия Т1</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">
+                            <div id="T1result"></div>
+                        </th>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">Электроэнергия Т2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">
+                            <div id="T2result"></div>
+                        </th>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">Электроэнергия Т3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">
+                            <div id="T3result"></div>
+                        </th>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">Горячая вода</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">
+                            <div id="HOTresult"></div>
+                        </th>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">Холодная вода</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">
+                            <div id="COLDresult"></div>
+                        </th>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">Водооотвод</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="col">
+                            <div id="VODOOTVODresult"></div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <table class="table table-dark text-center">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <div id="totalresult"></div>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+</div>
+<div class="container-fluid text-center">
+    © <a href="https://github.com/devilcrowley">devilcrowley</a>, 2018
+    <br>
+    <br>
+</div>
+<script src="counter.js">
+
+
+</script>
+<script src="jquery-3.3.1.slim.min.js">
+
+
+</script>
+<script src="popper.min.js">
+
+
+</script>
+<link rel="stylesheet" href="bt.css">
+<script src="bt.js">
+
+
+</script>
+</body>
